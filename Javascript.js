@@ -3,8 +3,12 @@
 // in the html.
 var timeDisplay = document.querySelector("#currentDay")
 var timeBlock = document.querySelector('.time-block')
-var saveBtn = document.querySelector('.btn')
-var inputTextArea = document.querySelector('.textZone')
+var saveBtn = document.querySelectorAll('.saveBtn');
+var inputTextArea = document.querySelector('.description')
+var hour12 = document.querySelector('#hour-12')
+var allButtons = document.querySelectorAll('p')
+
+
 
 
 $(function () {
@@ -16,30 +20,35 @@ $(function () {
     // useful when saving the description in local storage?
 
 
-    // saveBtn.addEventListener('click', function () {
+    Array.from(saveBtn).forEach(function (saveBtn) {
+        saveBtn.addEventListener('click', saveContent);
+    });
 
-    //     inputTextArea.textContent = localStorage.getItem('content');
-    //     inputTextArea.value = localStorage.getItem('content')
-
-
-    //     localStorage.setItem('content', inputTextArea.value)
-
-    //     inputTextArea.textContent = inputTextArea.value
-
-    // })
-
-    saveBtn.addEventListener('click', function () {
+    inputTextArea.textContent = localStorage.getItem('content');
 
 
-        localStorage.setItem('content', inputTextArea.value)
-
-        inputTextArea.textContent = localStorage.getItem('content')
-
-        console.log(inputTextArea.textContent)
+    function saveContent() {
 
 
+        localStorage.setItem('content', inputTextArea.value);
 
-    })
+        console.log(localStorage)
+
+
+    }
+
+
+    
+
+   
+
+
+    // $(document).ready(function(){
+    //     $(".saveBtn").click(function(){
+    //         var elmId = $("#hour-12").attr("id");
+    //         alert(elmId);
+    //     });
+    // });
 
 
     // TODO: Add code to apply the past, present, or future class to each time
@@ -47,6 +56,29 @@ $(function () {
     // attribute of each time-block be used to conditionally add or remove the
     // past, present, and future classes? How can Day.js be used to get the
     // current hour in 24-hour time?
+
+    function timeState() {
+        var compareArray = {
+            actualTime: "12",
+            comparedTime: hourly,
+        }
+
+
+
+        if (compareArray.actualTime == compareArray.comparedTime) {
+
+            console.log("true")
+
+        } else {
+
+            console.log("false")
+
+        }
+
+
+    }
+
+    timeState()
 
 
 
@@ -80,5 +112,10 @@ $(function () {
 
 
 });
+
+
+var hourly = dayjs();
+$('#3a').text(hourly.hour())
+
 
 
