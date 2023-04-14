@@ -8,10 +8,17 @@ var inputTextArea = document.querySelector('.description')
 var hour12 = document.querySelector('#hour-12')
 var allButtons = document.querySelectorAll('p')
 
+$(document).ready(function() {
+    $(".saveBtn").on('click', function() {
+        var value = $(this).siblings('.description').val()
+        var time = $(this).parent().attr('id')
+        console.log(time)
+        localStorage.setItem(time, value)
+    })
+})
 
 
-
-$(function () {
+// $(function () {
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
@@ -20,79 +27,13 @@ $(function () {
     // useful when saving the description in local storage?
 
 
-    Array.from(saveBtn).forEach(function (saveBtn) {
-        saveBtn.addEventListener('click', saveContent);
-    });
-
-    inputTextArea.textContent = localStorage.getItem('content');
-
-
-    function saveContent() {
-
-
-        localStorage.setItem('content', inputTextArea.value);
-
-        console.log(localStorage)
-
-
-    }
-
-
-    
-
-   
-
-
-    // $(document).ready(function(){
-    //     $(".saveBtn").click(function(){
-    //         var elmId = $("#hour-12").attr("id");
-    //         alert(elmId);
-    //     });
-    // });
-
-
     // TODO: Add code to apply the past, present, or future class to each time
     // block by comparing the id to the current hour. HINTS: How can the id
     // attribute of each time-block be used to conditionally add or remove the
     // past, present, and future classes? How can Day.js be used to get the
     // current hour in 24-hour time?
 
-    function timeState() {
-        var compareArray = {
-            actualTime: "12",
-            comparedTime: hourly,
-        }
-
-
-
-        if (compareArray.actualTime == compareArray.comparedTime) {
-
-            console.log("true")
-
-        } else {
-
-            console.log("false")
-
-        }
-
-
-    }
-
-    timeState()
-
-
-
-    // function timeState(event) {
-
-    //     if (timeBlock = (dayjs().isBefore(dayjs('2024-01-01')) )) {
-
-    //         timeBlock.classList.add("past")
-
-    //    } else { timeBlock = currentTime 
-    //             console.log(event)
-
-    //    }
-    // }
+ 
 
 
 
@@ -111,11 +52,48 @@ $(function () {
     }
 
 
-});
+// });
 
 
 var hourly = dayjs();
 $('#3a').text(hourly.hour())
 
+function hourlyUpdate() {
+    var date = new Date 
+    
+    var hour = date.getHours()
+    
+    $('.time-block').each(function() {
+        var blockHour = parseInt($(this).attr('id').split('-')[1])
+        console.log(blockHour)
 
+        if (blockHour < hour) {
+            $(this).addClass('past')
+            
+        } else if (blockHour === hour) { 
+            $(this).removeClass('past')
+            $(this).addClass('present')
+            
+        } else {
+            $(this).removeClass('past')
+            $(this).removeClass('present')
+            $(this).addClass('future')
+        }
 
+    })
+
+}
+
+hourlyUpdate()
+
+var interval = setInterval (hourlyUpdate, 15000)
+
+$('#hour-9 .description').val(localStorage.getItem('hour-9'))
+$('#hour-10 .description').val(localStorage.getItem('hour-10'))
+$('#hour-11 .description').val(localStorage.getItem('hour-11'))
+$('#hour-12 .description').val(localStorage.getItem('hour-12'))
+$('#hour-13 .description').val(localStorage.getItem('hour-13'))
+$('#hour-14 .description').val(localStorage.getItem('hour-14'))
+$('#hour-15 .description').val(localStorage.getItem('hour-15'))
+$('#hour-16 .description').val(localStorage.getItem('hour-16'))
+$('#hour-17 .description').val(localStorage.getItem('hour-17'))
