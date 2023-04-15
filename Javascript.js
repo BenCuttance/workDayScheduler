@@ -69,9 +69,13 @@ function hourlyUpdate() {
 
         if (blockHour < hour) {
             $(this).addClass('past')
+            $(this).removeClass('future')
+            $(this).removeClass('present')
+
             
         } else if (blockHour === hour) { 
             $(this).removeClass('past')
+            $(this).removeClass('future')
             $(this).addClass('present')
             
         } else {
